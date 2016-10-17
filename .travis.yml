@@ -1,5 +1,24 @@
 language: c
-script: bash -ex .travis-ci.sh
+sudo: required
+dist: trusty
+
+addons:
+  apt:
+    packages:
+    - aspcud
+
+before_install:
+    - bash -ex .travis-ci.sh prepare
+install:
+    - bash -ex .travis-ci.sh install
+
+cache:
+    directories:
+    - $HOME/.opam.bootstrap
+
+script:
+    - bash -ex .travis-ci.sh build
+
 matrix:
   include:
     - os: linux
