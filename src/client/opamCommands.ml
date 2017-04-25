@@ -173,7 +173,7 @@ let init =
     mk_opt_all ["config"] "FILE"
       "Use the given init config file (default is ~/.opamrc or /etc/opamrc, \
        if present)"
-      Arg.(some & OpamArg.filename) None
+      OpamArg.filename None
   in
   let no_config_file =
     mk_flag ["default-config"]
