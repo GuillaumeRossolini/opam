@@ -182,9 +182,9 @@ let edit_raw name temp_file =
         if OpamConsole.confirm "Continue anyway ('no' will reedit) ?"
         then Some opam
         else edit ()
-    with e ->
+    with e -> raise e;
       OpamStd.Exn.fatal e;
-      log "Editing error: %s" (Printexc.to_string e);
+      OpamConsole.errmsg "Editing error: %s\n" (Printexc.to_string e);
       if OpamStd.Sys.tty_in &&
          OpamConsole.confirm "Errors in %s, retry editing ?"
            (OpamFile.to_string temp_file)

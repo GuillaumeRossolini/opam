@@ -170,7 +170,7 @@ let init =
   let no_setup   = mk_flag ["n";"no-setup"]   "Do not update the global and user configuration options to setup opam." in
   let auto_setup = mk_flag ["a";"auto-setup"] "Automatically setup all the global and user configuration options for opam." in
   let config_file =
-    mk_opt ["config"] "FILE"
+    mk_opt_all ["config"] "FILE"
       "Use the given init config file (default is ~/.opamrc or /etc/opamrc, \
        if present)"
       Arg.(some & OpamArg.filename) None
@@ -191,7 +191,7 @@ let init =
       compiler no_compiler config_file no_config_file bypass_checks =
     apply_global_options global_options;
     apply_build_options build_options;
-    let config_file =
+    let config_files =
       if no_config_file then None else
         match config_file with
         | Some f -> Some (OpamFile.make f)
@@ -615,7 +615,7 @@ let config =
     "set", `set, ["VAR";"VALUE"],
     "Set the given opam variable for the current switch. Warning: changing a \
      configured path will not move any files! This command does not perform \
-     anyvariable expansion.";
+     any variable expansion.";
     "unset", `unset, ["VAR"],
     "Unset the given opam variable for the current switch. Warning: \
      unsetting built-in configuration variables can cause problems!";
